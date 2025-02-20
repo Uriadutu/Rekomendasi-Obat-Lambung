@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
   const [nilaiKeyakinan, setNilaiKeyakinan] = useState({});
   const navigate = useNavigate();
+  const [msg, setMsg] = useState("");
 
   const handleReset = () => {
     setNilaiKeyakinan({});
@@ -12,7 +13,14 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
 
   const hitungCertaintyFactor = () => {
     if (!selectedGejala.length || !obatData.length) {
-      console.error("Data gejala atau obat tidak tersedia!");
+      setMsg("Data gejala atau obat tidak tersedia!");
+      return;
+    }
+
+    if (Object.keys(nilaiKeyakinan).length !== selectedGejala.length) {
+      setMsg(
+        "Pilih nilai keyakinan!"
+      );
       return;
     }
 
@@ -53,7 +61,9 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
       }))
       .sort((a, b) => b.nilai - a.nilai);
 
-    navigate("/hasil-perhitungan", { state: { hasilRekomendasi: rekomendasiObat } });
+    navigate("/hasil-perhitungan", {
+      state: { hasilRekomendasi: rekomendasiObat },
+    });
   };
 
   return (
@@ -67,21 +77,33 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
       >
         <div className="flex items-start justify-between p-6 border-b border-gray-200">
           <h3 className="text-xl font-semibold">Tentukan Nilai Keyakinan</h3>
-          <button onClick={() => setIsOpenModalAdd(false)} className="w-8 h-8">✖</button>
+          <button
+            onClick={() => setIsOpenModalAdd(false)}
+            className="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-700 bg-transparent rounded-lg hover:bg-red-500 hover:text-gray-100 ms-auto transition duration-300"
+          >
+              ✕
+              </button>
         </div>
         <div className="py-2 px-6">
           <div className="w-full grid grid-cols-4">
             <div className=""></div>
             <div className="flex w-full justify-between col-span-3">
-              <p className="text-start text-[12px]">Kurang <br /> Yakin</p>
-              <p className="text-end text-[12px]">Sangat <br /> Yakin</p>
+              <p className="text-start text-[12px]">
+                Kurang <br /> Yakin
+              </p>
+              <p className="text-end text-[12px]">
+                Sangat <br /> Yakin
+              </p>
             </div>
           </div>
         </div>
         <div className="px-6 pb-6 space-y-6">
           {selectedGejala.length > 0 ? (
             selectedGejala.map((gejala) => (
-              <div key={gejala.id} className="grid grid-cols-4 gap-2 items-center">
+              <div
+                key={gejala.id}
+                className="grid grid-cols-4 gap-2 items-center"
+              >
                 <span className="font-medium">{gejala.nama}</span>
                 <div className="col-span-3 flex justify-between">
                   {Array.from({ length: 10 }).map((_, index) => {
@@ -107,10 +129,13 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500">Tidak ada gejala yang dipilih.</p>
+            <p className="text-center text-gray-500">
+              Tidak ada gejala yang dipilih.
+            </p>
           )}
         </div>
         <div className="flex items-center w-full justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
+          <p className="text-red-500">{msg}</p>
           <button
             onClick={handleReset}
             className="px-4 py-2 bg-gray-200 border border-gray-400 text-gray-500 text-sm rounded hover:bg-gray-100 transition duration-300"

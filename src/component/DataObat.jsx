@@ -56,52 +56,46 @@ const DataObat = () => {
 
           {/* 🔹 Tabel Data Obat */}
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-400">
-              <thead className="bg-gray-100">
-                <tr className="text-left">
-                  <th className="border px-4 py-2">No</th>
-                  <th className="border px-4 py-2">Nama Obat</th>
-                  <th className="border px-4 py-2">Tanggal Tambah</th>
-                  <th className="border px-4 py-2">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dataObat.length > 0 ? (
-                  dataObat.map((obat, index) => (
-                    <tr key={obat.id} className="hover:bg-gray-100">
-                      <td className="border px-4 py-2">{index + 1}</td>
-                      <td className="border px-4 py-2">
-                        {capitalizeWords(obat.nama)}
-                      </td>
-                      <td className="border px-4 py-2">
-                        {parseAndFormatDateString (obat.createdAt
-                          ? new Date(
-                              obat.createdAt.seconds * 1000
-                            ).toLocaleDateString()
-                          : "-")}
-                      </td>
-                      <td className="border px-4 py-2 space-x-3">
-                        <button
-                          onClick={() => handleDelete(obat.id)}
-                          className="text-red-500 hover:underline"
-                        >
-                          Hapus
-                        </button>
+            <div className="sm:w-auto w-auto">
+              <table className="w-full border-collapse border border-gray-400">
+                <thead className="bg-gray-100">
+                  <tr className="text-left">
+                    <th className="border px-4 py-2">No</th>
+                    <th className="border px-4 py-2 whitespace-nowrap">Nama Obat</th>
+                    <th className="border px-4 py-2 whitespace-nowrap">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataObat.length > 0 ? (
+                    dataObat.map((obat, index) => (
+                      <tr key={obat.id} className="hover:bg-gray-100">
+                        <td className="border px-4 py-2">{index + 1}</td>
+                        <td className="border px-4 py-2">
+                          {capitalizeWords(obat.nama)}
+                        </td>
+                        <td className="border px-4 py-2 space-x-3">
+                          <button
+                            onClick={() => handleDelete(obat.id)}
+                            className="text-red-500 hover:underline"
+                          >
+                            Hapus
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan="4"
+                        className="border px-4 py-2 text-center text-gray-500"
+                      >
+                        Tidak ada data obat
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan="4"
-                      className="border px-4 py-2 text-center text-gray-500"
-                    >
-                      Tidak ada data obat
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

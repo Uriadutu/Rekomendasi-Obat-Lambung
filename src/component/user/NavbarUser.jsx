@@ -10,7 +10,10 @@ const NavbarUser = () => {
         className="uppercase flex items-center gap-1 font-bold text-md sm:text-lg text-white"
       >
         <img src={LogoApp} className="w-10" alt="" />
+        <p className='text-white text-[12px] md:text-[16px]'>
+
         Sistem Rekomendasi Obat Asam Lambung
+        </p>
       </Link>
 
       <div className="hidden sm:block">

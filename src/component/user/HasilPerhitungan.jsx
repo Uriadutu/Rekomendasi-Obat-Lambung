@@ -40,7 +40,7 @@ const HasilPerhitungan = () => {
                     ></div>
                   </div>
                   <div className="text-right text-sm text-gray-700 mt-1">
-                    Persentase Rekomendasi: {item.nilai}%
+                    Persentase Rekomendasi: {item.nilai > 100 ? 100 : item.nilai}%
                   </div>
                 </li>
               ))}

@@ -35,8 +35,9 @@ const Sidebar = () => {
           >
             <img src={logo} className="w-32" alt="" />
           </Link>
+          <div className="border-b mt-3 border-white w-full "></div>
         </div>
-        <div className="mt-[16%] grid gap-y-3">
+        <div className="mt-3 grid gap-y-3">
           <Link
             to="/data-obat"
             className="rounded-md text-white flex items-center text-sm w-full text-left"

@@ -53,12 +53,12 @@ const KelolaData = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
             {dataObat.map((obat) => (
               <div key={obat.id} className="bg-white shadow-lg rounded-lg p-4 border border-gray-200 flex flex-col relative hover:scale-x-[1.02] transition duration-300">
-                <h2 className="text-xl font-semibold text-green-600">{capitalizeWords(obat.nama)}</h2>
+                <h2 className="text-xl font-semibold text-gray-700">{capitalizeWords(obat.nama)}</h2>
                 <ul className="mt-2 flex flex-col gap-1">
                   {obat.gejalaList.map((gejala, index) => (
                     <li key={index} className="bg-gray-100 rounded-lg px-3 py-2 flex justify-between">
-                      <span className="text-gray-700">{capitalizeWords(gejala.gejala)}</span>
-                      <span className="text-green-500 font-medium">{(parseFloat(gejala.keyakinan) * 100).toFixed(0)}%</span>
+                      <span className="text-gray-500">{capitalizeWords(gejala.gejala)}</span>
+                      <span className="text-gray-600 font-medium">{(parseFloat(gejala.keyakinan) * 100).toFixed(0)}%</span>
                     </li>
                   ))}
                 </ul>

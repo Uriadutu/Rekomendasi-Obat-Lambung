@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import UserCFModal from "./UserCFModal";
 import { db } from "../../auth/Firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { AnimatePresence } from "framer-motion";
 
 const Home = () => {
   const [lanjut, setLanjut] = useState(false);
@@ -71,13 +72,16 @@ const Home = () => {
 
   return (
     <div className="px-1 md:px-10 w-full">
+      <AnimatePresence>
+
       {lanjut && (
         <UserCFModal
-          setIsOpenModalAdd={setLanjut}
-          selectedGejala={selectedGejala}
-          obatData={obatData} // 🔥 Kirim data obat ke modal
+        setIsOpenModalAdd={setLanjut}
+        selectedGejala={selectedGejala}
+        obatData={obatData} // 🔥 Kirim data obat ke modal
         />
       )}
+      </AnimatePresence>
       <div className="px-4 md:px-10 py-2 md:py-10">
         <header className="border-b border-gray-200">
           <div className="bg-white rounded-t px-3 py-4 font-bold text-lg md:text-xl">

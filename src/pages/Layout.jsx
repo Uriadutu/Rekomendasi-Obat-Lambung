@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
         </div>
         <div className="flex-1">
           <main className="min-h-screen relative pt-20 sm:pt-5">
-            <div className="pl-2 pr-1 sm:pl-72 sm:pr-8">{children}</div>
+            <div className="px-1 sm:pl-72 sm:pr-8">{children}</div>
           </main>
         </div>
       </div>
