@@ -148,9 +148,11 @@ const EditObatModal = ({ setIsOpenModalAdd, getData }) => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-4 space-y-4 text-gray-700">
+        <form onSubmit={handleSubmit} className=" ">
           {/* Pilih Obat */}
-          <div>
+          <div className="max-h-[60vh] overflow-y-auto p-4 space-y-4 text-gray-700">
+          <div className="">
+
             <label className="block text-sm font-medium text-gray-700">
               Pilih Obat
             </label>
@@ -172,13 +174,13 @@ const EditObatModal = ({ setIsOpenModalAdd, getData }) => {
           {namaObat && (
             <div className="space-y-4">
               {gejalaList.map((item, index) => (
-                <div key={index} className="flex gap-2 items-center">
+                <div key={index} className="grid grid-cols-7 gap-2 items-center">
                   <select
                     value={item.gejala}
                     onChange={(e) =>
                       handleGejalaChange(index, "gejala", e.target.value)
                     }
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300"
+                    className="flex-1 sm:col-span-5 col-span-4 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300"
                   >
                     <option value="">Pilih Gejala</option>
                     {getAvailableGejalaOptions(item.gejala).map((gejala, i) => (
@@ -192,7 +194,7 @@ const EditObatModal = ({ setIsOpenModalAdd, getData }) => {
                     onChange={(e) =>
                       handleGejalaChange(index, "keyakinan", e.target.value)
                     }
-                    className="w-20 px-2 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300"
+                    className=" sm:col-span-1 col-span-2 px-2 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300"
                   >
                     <option value="">Keyakinan</option>
                     {[...Array(10).keys()].map((i) => {
@@ -223,6 +225,7 @@ const EditObatModal = ({ setIsOpenModalAdd, getData }) => {
               </button>
             </div>
           )}
+          </div>
           <div className="p-4 border-t border-gray-200 flex justify-end gap-3">
             <button
               onClick={() => setIsOpenModalAdd(false)}
