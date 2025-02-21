@@ -34,11 +34,11 @@ const InfoGejalaModal = ({ setIsOpenModalAdd, gejalaUser }) => {
               {gejalaUser.map((gejala, index) => (
                 <div
                   key={gejala.id}
-                  className="flex justify-between items-center px-4 py-3 bg-gray-50 rounded-lg shadow-sm border border-gray-200"
+                  className="grid grid-cols-6 items-center px-4 py-3 bg-gray-50 rounded-lg shadow-sm border border-gray-200"
                 >
-                  <span className="font-medium text-gray-800">{index + 1}. {gejala.nama}</span>
-                  <span className="text-sm text-gray-600">
-                    Keyakinan: <span className="font-semibold text-green-600">{(gejala.keyakinan * 100).toFixed()}%</span>
+                  <span className="font-medium col-span-5 text-gray-800">{gejala.nama}</span>
+                  <span className="text-sm text-center text-gray-600">
+                     <span className="font-semibold text-green-600">{(gejala.keyakinan * 100).toFixed()}%</span>
                   </span>
                 </div>
               ))}
