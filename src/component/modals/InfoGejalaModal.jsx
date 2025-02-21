@@ -28,7 +28,7 @@ const InfoGejalaModal = ({ setIsOpenModalAdd, gejalaUser }) => {
         </div>
 
         {/* Konten */}
-        <div className="px-6 py-4 text-gray-700 space-y-4">
+        <div className="px-6 py-4 text-gray-700 space-y-4 max-h-[60vh] overflow-y-auto">
           {gejalaUser.length > 0 ? (
             <div className="space-y-2">
               {gejalaUser.map((gejala, index) => (
