@@ -16,28 +16,26 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
       setMsg("Data gejala atau obat tidak tersedia!");
       return;
     }
-
+  
     if (Object.keys(nilaiKeyakinan).length !== selectedGejala.length) {
-      setMsg(
-        "Pilih nilai keyakinan!"
-      );
+      setMsg("Pilih nilai keyakinan!");
       return;
     }
-
+  
     let hasilPerhitungan = [];
-
+  
     selectedGejala.forEach((gejala) => {
       obatData.forEach((obat) => {
         const gejalaDitemukan = obat.gejalaList.find(
           (g) => g.gejala === gejala.nama
         );
-
+  
         if (!gejalaDitemukan) return;
-
+  
         const cfPakar = parseFloat(gejalaDitemukan.keyakinan) || 0;
         const cfUser = nilaiKeyakinan[gejala.id] || 0;
         const cfKombinasi = cfPakar * cfUser;
-
+  
         hasilPerhitungan.push({
           namaObat: obat.nama,
           gejala: gejala.nama,
@@ -45,7 +43,7 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
         });
       });
     });
-
+  
     const totalCF = hasilPerhitungan.reduce((acc, { namaObat, cf }) => {
       if (!acc[namaObat]) {
         acc[namaObat] = 0;
@@ -53,18 +51,26 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
       acc[namaObat] += cf;
       return acc;
     }, {});
-
+  
     const rekomendasiObat = Object.entries(totalCF)
       .map(([namaObat, cfTotal]) => ({
         nama: namaObat,
         nilai: (cfTotal * 100).toFixed(2),
       }))
       .sort((a, b) => b.nilai - a.nilai);
-
+  
+    // **Tambahkan data gejala beserta keyakinan user ke state**
+    const dataUser = selectedGejala.map((gejala) => ({
+      id: gejala.id,
+      nama: gejala.nama,
+      keyakinan: nilaiKeyakinan[gejala.id],
+    }));
+  
     navigate("/hasil-perhitungan", {
-      state: { hasilRekomendasi: rekomendasiObat },
+      state: { hasilRekomendasi: rekomendasiObat, gejalaUser: dataUser },
     });
   };
+  
 
   return (
     <div className="fixed inset-0 px-2 flex items-center sm:items-start sm:pt-3 justify-center bg-black bg-opacity-70 z-40">
