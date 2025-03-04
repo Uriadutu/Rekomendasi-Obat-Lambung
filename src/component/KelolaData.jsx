@@ -4,10 +4,12 @@ import { db } from "../auth/Firebase";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import AddKelolaDataModal from "./modals/AddKelolaDataModal";
 import { capitalizeWords } from "../utils/helper";
+import { IoSearch } from "react-icons/io5";
 
 const KelolaData = () => {
   const [openModal, setOpenModal] = useState(false);
   const [dataObat, setDataObat] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -35,6 +37,10 @@ const KelolaData = () => {
     }
   };
 
+  const filteredObat = dataObat.filter((obat) =>
+    obat.nama.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="p-4">
       <AnimatePresence>
@@ -47,11 +53,23 @@ const KelolaData = () => {
         </header>
         <div className="px-3 py-4">
           <div className="flex justify-between items-center mb-4">
-            <button onClick={() => setOpenModal(true)} className="btn-add">Tambah Data</button>
+            <button onClick={() => setOpenModal(true)} className="btn-add">
+              Tambah Data
+            </button>
+            <div className="flex p-2 border rounded border-gray-200 items-center">
+              <input
+                type="text"
+                placeholder="Cari nama obat"
+                className="text-sm outline-0 w-full"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <IoSearch color="silver" />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
-            {dataObat.map((obat) => (
+            {filteredObat.map((obat) => (
               <div key={obat.id} className="bg-white shadow-lg rounded-lg p-4 border border-gray-200 flex flex-col relative hover:scale-x-[1.02] transition duration-300">
                 <h2 className="text-xl font-semibold text-gray-700">{capitalizeWords(obat.nama)}</h2>
                 <ul className="mt-2 flex flex-col gap-1">

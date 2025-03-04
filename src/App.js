@@ -6,6 +6,7 @@ import Login from "./component/Login";
 import DataGejalaPage from "./pages/DataGejalaPage";
 import KelolaDataPage from "./pages/KelolaDataPage";
 import HasilPerhitunganPage from "./pages/userPage/HasilPerhitunganPage";
+import Tess from "./pages/tes";
 
 
 
@@ -16,6 +17,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
+          <Route path="/tes" element={<Tess />} />
           <Route path="/" element={<Splash />} />
           <Route path="/beranda" element={<HomePage />} />
           <Route path="/masuk" element={<Login />} />

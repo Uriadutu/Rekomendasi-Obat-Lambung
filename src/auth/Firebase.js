@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 // Firebase config (gantilah dengan konfigurasi proyek Firebase Anda)
 const firebaseConfig = {
     apiKey: "AIzaSyBjaN-Q2hRHisJC_M91w9zueQ0Naccci-Y",
@@ -15,5 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 export const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { auth };
+
+export { auth, storage };

@@ -3,11 +3,13 @@ import { db } from "../auth/Firebase";
 import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import AddObatModal from "./modals/AddObatModal";
 import { AnimatePresence } from "framer-motion";
-import { capitalizeWords, parseAndFormatDateString } from "../utils/helper";
+import { capitalizeWords } from "../utils/helper";
+import { IoSearch } from "react-icons/io5";
 
 const DataObat = () => {
   const [openModal, setOpenModal] = useState(false);
   const [dataObat, setDataObat] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // 🔥 Ambil data dari Firestore secara real-time
   useEffect(() => {
@@ -37,6 +39,11 @@ const DataObat = () => {
     }
   };
 
+  // 🔍 Filter data berdasarkan searchTerm
+  const filteredData = dataObat.filter((obat) =>
+    obat.nama.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="p-4">
       <AnimatePresence>
@@ -52,6 +59,16 @@ const DataObat = () => {
             <button onClick={() => setOpenModal(true)} className="btn-add">
               Tambah Obat
             </button>
+            <div className="flex p-2 border rounded border-gray-200 items-center">
+              <input
+                type="text"
+                placeholder="Cari obat"
+                className="text-sm outline-0 w-full"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <IoSearch color="silver" />
+            </div>
           </div>
 
           {/* 🔹 Tabel Data Obat */}
@@ -61,13 +78,15 @@ const DataObat = () => {
                 <thead className="bg-gray-100">
                   <tr className="text-left">
                     <th className="border px-4 py-2">No</th>
-                    <th className="border px-4 py-2 whitespace-nowrap">Nama Obat</th>
+                    <th className="border px-4 py-2 whitespace-nowrap">
+                      Nama Obat
+                    </th>
                     <th className="border px-4 py-2 whitespace-nowrap">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {dataObat.length > 0 ? (
-                    dataObat.map((obat, index) => (
+                  {filteredData.length > 0 ? (
+                    filteredData.map((obat, index) => (
                       <tr key={obat.id} className="hover:bg-gray-100">
                         <td className="border px-4 py-2">{index + 1}</td>
                         <td className="border px-4 py-2">
@@ -86,7 +105,7 @@ const DataObat = () => {
                   ) : (
                     <tr>
                       <td
-                        colSpan="4"
+                        colSpan="3"
                         className="border px-4 py-2 text-center text-gray-500"
                       >
                         Tidak ada data obat
