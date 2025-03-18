@@ -46,9 +46,10 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
   
     const totalCF = hasilPerhitungan.reduce((acc, { namaObat, cf }) => {
       if (!acc[namaObat]) {
-        acc[namaObat] = 0;
+        acc[namaObat] = cf; // Set nilai awal
+      } else {
+        acc[namaObat] = acc[namaObat] + cf * (1 - acc[namaObat]);
       }
-      acc[namaObat] += cf;
       return acc;
     }, {});
   
