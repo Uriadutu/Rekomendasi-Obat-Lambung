@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddGejalaModal from "./modals/AddGejalaModal";
+import EditGejalaModal from "./modals/EditGejalaModal";
 import { AnimatePresence } from "framer-motion";
 import { db } from "../auth/Firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
@@ -8,13 +9,14 @@ import { IoSearch } from "react-icons/io5";
 
 const DataGejala = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [selectedGejala, setSelectedGejala] = useState(null);
   const [dataGejala, setDataGejala] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 🔥 Ambil data gejala dari Firestore
   useEffect(() => {
     fetchGejala();
-  }, [openModal]); // Ambil ulang data setelah modal ditutup
+  }, [openModal, openModalEdit]);
 
   const fetchGejala = async () => {
     const querySnapshot = await getDocs(collection(db, "gejala"));
@@ -25,11 +27,8 @@ const DataGejala = () => {
     setDataGejala(gejalaList);
   };
 
-  // 🚀 Fungsi hapus gejala dari Firestore
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Apakah Anda yakin ingin menghapus gejala ini?"
-    );
+    const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus gejala ini?");
     if (!confirmDelete) return;
 
     try {
@@ -41,7 +40,11 @@ const DataGejala = () => {
     }
   };
 
-  // 🔍 Filter data berdasarkan searchTerm
+  const handleEditGejala = (gejala) => {
+    setSelectedGejala(gejala);
+    setOpenModalEdit(true);
+  };
+
   const filteredData = dataGejala.filter((gejala) =>
     gejala.nama.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -50,6 +53,14 @@ const DataGejala = () => {
     <div className="p-4">
       <AnimatePresence>
         {openModal && <AddGejalaModal setIsOpenModalAdd={setOpenModal} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {openModalEdit && selectedGejala && (
+          <EditGejalaModal
+            setIsOpenModalEdit={setOpenModalEdit}
+            gejala={selectedGejala}
+          />
+        )}
       </AnimatePresence>
 
       <div className="bg-white rounded shadow-lg">
@@ -80,9 +91,7 @@ const DataGejala = () => {
                 <thead className="bg-gray-100">
                   <tr className="text-left">
                     <th className="border px-4 py-2">No</th>
-                    <th className="border px-4 py-2 whitespace-nowrap">
-                      Nama Gejala
-                    </th>
+                    <th className="border px-4 py-2 whitespace-nowrap">Nama Gejala</th>
                     <th className="border px-4 py-2 whitespace-nowrap">Aksi</th>
                   </tr>
                 </thead>
@@ -96,6 +105,12 @@ const DataGejala = () => {
                         </td>
                         <td className="border px-4 py-2">
                           <button
+                            onClick={() => handleEditGejala(gejala)}
+                            className="text-blue-500 hover:underline mr-2"
+                          >
+                            Ubah
+                          </button>
+                          <button
                             onClick={() => handleDelete(gejala.id)}
                             className="text-red-500 hover:underline"
                           >
@@ -106,10 +121,7 @@ const DataGejala = () => {
                     ))
                   ) : (
                     <tr>
-                      <td
-                        colSpan="3"
-                        className="border px-4 py-2 text-center text-gray-500"
-                      >
+                      <td colSpan="3" className="border px-4 py-2 text-center text-gray-500">
                         Tidak ada data gejala
                       </td>
                     </tr>

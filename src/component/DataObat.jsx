@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { db } from "../auth/Firebase";
 import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import AddObatModal from "./modals/AddObatModal";
+import EditObatModal from "./modals/EditObatModal";
 import { AnimatePresence } from "framer-motion";
 import { capitalizeWords } from "../utils/helper";
 import { IoSearch } from "react-icons/io5";
 
 const DataObat = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [selectedObat, setSelectedObat] = useState(null);
   const [dataObat, setDataObat] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -39,6 +42,12 @@ const DataObat = () => {
     }
   };
 
+  // ✏️ Fungsi untuk membuka modal edit
+  const handleEdit = (obat) => {
+    setSelectedObat(obat);
+    setOpenEditModal(true);
+  };
+
   // 🔍 Filter data berdasarkan searchTerm
   const filteredData = dataObat.filter((obat) =>
     obat.nama.toLowerCase().includes(searchTerm.toLowerCase())
@@ -47,7 +56,13 @@ const DataObat = () => {
   return (
     <div className="p-4">
       <AnimatePresence>
-        {openModal && <AddObatModal setIsOpenModalAdd={setOpenModal} />}
+        {openAddModal && <AddObatModal onClose={() => setOpenAddModal(false)} />}
+        {openEditModal && selectedObat && (
+          <EditObatModal
+            onClose={() => setOpenEditModal(false)}
+            obat={selectedObat}
+          />
+        )}
       </AnimatePresence>
 
       <div className="bg-white rounded shadow-lg">
@@ -56,7 +71,7 @@ const DataObat = () => {
         </header>
         <div className="px-3 py-4">
           <div className="flex justify-between items-center mb-4">
-            <button onClick={() => setOpenModal(true)} className="btn-add">
+            <button onClick={() => setOpenAddModal(true)} className="btn-add">
               Tambah Obat
             </button>
             <div className="flex p-2 border rounded border-gray-200 items-center">
@@ -93,6 +108,12 @@ const DataObat = () => {
                           {capitalizeWords(obat.nama)}
                         </td>
                         <td className="border px-4 py-2 space-x-3">
+                          <button
+                            onClick={() => handleEdit(obat)}
+                            className="text-blue-500 hover:underline"
+                          >
+                            Ubah
+                          </button>
                           <button
                             onClick={() => handleDelete(obat.id)}
                             className="text-red-500 hover:underline"
