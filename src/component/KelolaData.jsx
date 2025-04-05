@@ -54,7 +54,7 @@ const KelolaData = () => {
         <div className="px-3 py-4">
           <div className="flex justify-between items-center mb-4">
             <button onClick={() => setOpenModal(true)} className="btn-add">
-              Tambah Data
+              Kelola Data
             </button>
             <div className="flex p-2 border rounded border-gray-200 items-center">
               <input

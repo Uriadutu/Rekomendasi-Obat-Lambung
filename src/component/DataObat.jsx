@@ -56,7 +56,7 @@ const DataObat = () => {
   return (
     <div className="p-4">
       <AnimatePresence>
-        {openAddModal && <AddObatModal onClose={() => setOpenAddModal(false)} />}
+        {openAddModal && <AddObatModal setIsOpenModalAdd={setOpenAddModal} />}
         {openEditModal && selectedObat && (
           <EditObatModal
             onClose={() => setOpenEditModal(false)}
