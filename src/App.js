@@ -6,28 +6,43 @@ import Login from "./component/Login";
 import DataGejalaPage from "./pages/DataGejalaPage";
 import KelolaDataPage from "./pages/KelolaDataPage";
 import HasilPerhitunganPage from "./pages/userPage/HasilPerhitunganPage";
-import Tess from "./pages/tes";
-
-
-
-
-
+import ProtectedRoute from "./ProtectedRoute";
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/tes" element={<Tess />} />
-          <Route path="/" element={<Splash />} />
-          <Route path="/beranda" element={<HomePage />} />
-          <Route path="/masuk" element={<Login />} />
-          <Route path="/data-obat" element={<DataObatPage/>} />
-          <Route path="/data-gejala" element={<DataGejalaPage/>} />
-          <Route path="/kelola-data" element={<KelolaDataPage/>} />
-          <Route path="/hasil-perhitungan" element={<HasilPerhitunganPage/>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Splash />} />
+        <Route path="/masuk" element={<Login />} />
+        <Route path="/beranda" element={<HomePage />} />
+        <Route path="/hasil-perhitungan" element={<HasilPerhitunganPage />} />
+
+        {/* Protected routes */}
+        <Route
+          path="/data-obat"
+          element={
+            <ProtectedRoute>
+              <DataObatPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/data-gejala"
+          element={
+            <ProtectedRoute>
+              <DataGejalaPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/kelola-data"
+          element={
+            <ProtectedRoute>
+              <KelolaDataPage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
