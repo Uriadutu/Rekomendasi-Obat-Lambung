@@ -16,26 +16,36 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
       setMsg("Data gejala atau obat tidak tersedia!");
       return;
     }
-  
+
     if (Object.keys(nilaiKeyakinan).length !== selectedGejala.length) {
       setMsg("Pilih nilai keyakinan!");
       return;
     }
-  
+
     let hasilPerhitungan = [];
-  
+
+    // Filter hanya obat yang memiliki gejalaList yang valid
+    const obatValid = obatData.filter(
+      (obat) => Array.isArray(obat.gejalaList) && obat.gejalaList.length > 0
+    );
+
+    if (obatValid.length === 0) {
+      setMsg("Tidak ada obat yang sesuai dengan gejala yang dipilih!");
+      return;
+    }
+
     selectedGejala.forEach((gejala) => {
-      obatData.forEach((obat) => {
+      obatValid.forEach((obat) => {
         const gejalaDitemukan = obat.gejalaList.find(
           (g) => g.gejala === gejala.nama
         );
-  
+
         if (!gejalaDitemukan) return;
-  
+
         const cfPakar = parseFloat(gejalaDitemukan.keyakinan) || 0;
         const cfUser = nilaiKeyakinan[gejala.id] || 0;
         const cfKombinasi = cfPakar * cfUser;
-  
+
         hasilPerhitungan.push({
           namaObat: obat.nama,
           gejala: gejala.nama,
@@ -43,35 +53,33 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
         });
       });
     });
-  
+
     const totalCF = hasilPerhitungan.reduce((acc, { namaObat, cf }) => {
       if (!acc[namaObat]) {
-        acc[namaObat] = cf; // Set nilai awal
+        acc[namaObat] = cf;
       } else {
         acc[namaObat] = acc[namaObat] + cf * (1 - acc[namaObat]);
       }
       return acc;
     }, {});
-  
+
     const rekomendasiObat = Object.entries(totalCF)
       .map(([namaObat, cfTotal]) => ({
         nama: namaObat,
         nilai: (cfTotal * 100).toFixed(2),
       }))
       .sort((a, b) => b.nilai - a.nilai);
-  
-    // **Tambahkan data gejala beserta keyakinan user ke state**
+
     const dataUser = selectedGejala.map((gejala) => ({
       id: gejala.id,
       nama: gejala.nama,
       keyakinan: nilaiKeyakinan[gejala.id],
     }));
-  
+
     navigate("/hasil-perhitungan", {
       state: { hasilRekomendasi: rekomendasiObat, gejalaUser: dataUser },
     });
   };
-  
 
   return (
     <div className="fixed inset-0 px-2 flex items-center sm:items-start sm:pt-3 justify-center bg-black bg-opacity-70 z-40">
@@ -92,17 +100,21 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
             ✕
           </button>
         </div>
-  
+
         {/* Konten dengan Scroll */}
         <div className="py-2 px-6 max-h-[60vh] overflow-y-auto">
           <div className="w-full grid grid-cols-4">
             <div className=""></div>
             <div className="flex w-full justify-between col-span-3">
-              <p className="text-start text-[12px]">Kurang <br /> Yakin</p>
-              <p className="text-end text-[12px]">Sangat <br /> Yakin</p>
+              <p className="text-start text-[12px]">
+                Kurang <br /> Yakin
+              </p>
+              <p className="text-end text-[12px]">
+                Sangat <br /> Yakin
+              </p>
             </div>
           </div>
-  
+
           {/* List Gejala */}
           <div className="space-y-6">
             {selectedGejala.length > 0 ? (
@@ -137,7 +149,7 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
             )}
           </div>
         </div>
-  
+
         {/* Footer */}
         <div className="flex items-center w-full justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
           <p className="text-red-500">{msg}</p>
@@ -157,7 +169,6 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
       </motion.div>
     </div>
   );
-  
 };
 
 export default UserCFModal;
