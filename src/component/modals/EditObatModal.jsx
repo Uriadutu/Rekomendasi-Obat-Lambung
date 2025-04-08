@@ -44,7 +44,7 @@ const EditObatModal = ({ onClose, obat }) => {
           className="w-full max-w-lg bg-white rounded-lg shadow-lg"
         >
           <div className="flex items-start justify-between p-4 border-b border-gray-200 rounded-t">
-            <h3 className="text-xl font-semibold text-gray-700">Edit Obat</h3>
+            <h3 className="text-xl font-semibold text-gray-700">Ubah Obat</h3>
             <button
               onClick={onClose}
               type="button"
@@ -65,7 +65,7 @@ const EditObatModal = ({ onClose, obat }) => {
                     value={namaObat}
                     onChange={(e) => setNamaObat(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg focus:outline-none"
-                    placeholder="Edit nama obat"
+                    placeholder="Masukan Nama Obat"
                   />
                 </div>
               </div>
