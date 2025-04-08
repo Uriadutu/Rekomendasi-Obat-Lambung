@@ -12,10 +12,10 @@ const Splash = () => {
             Rekomendasi Obat Asam Lambung
           </h1>
           <p className="text-white text-sm md:text-base lg:text-lg mb-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-            voluptatem iste quis voluptas doloremque sunt nemo nam ipsum magni,
-            pariatur earum iusto? Assumenda architecto, rem laborum tempora
-            explicabo quasi ut.{" "}
+            Aplikasi ini memberikan rekomendasi obat asam lambung yang aman dan
+            efektif, membantu Anda mengelola gejala dengan mudah. Temukan
+            pilihan terbaik untuk meredakan asam lambung dan rasakan
+            kenyamanan kembali.{" "}
           </p>
         </div>
 
