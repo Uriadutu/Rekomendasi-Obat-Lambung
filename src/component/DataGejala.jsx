@@ -24,7 +24,16 @@ const DataGejala = () => {
       id: doc.id,
       ...doc.data(),
     }));
-    setDataGejala(gejalaList);
+
+    // Tambahkan sorting berdasarkan timestamp jika ada, fallback ke id
+    const sortedGejala = gejalaList.sort((a, b) => {
+      if (a.createdAt && b.createdAt) {
+        return a.createdAt.seconds - b.createdAt.seconds; // ascending
+      }
+      return a.id.localeCompare(b.id); // fallback
+    });
+
+    setDataGejala(sortedGejala);
   };
 
   const handleDelete = async (id) => {
