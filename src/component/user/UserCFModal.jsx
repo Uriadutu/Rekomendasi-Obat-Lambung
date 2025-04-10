@@ -116,28 +116,37 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
           </div>
 
           {/* List Gejala */}
-          <div className="space-y-6">
+          <div className="space-y-2 mt-2">
+        
             {selectedGejala.length > 0 ? (
               selectedGejala.map((gejala) => (
-                <div key={gejala.id} className="grid grid-cols-4 gap-2 items-center">
+                <div
+                  key={gejala.id}
+                  className="grid grid-cols-4 gap-2 items-center"
+                >
                   <span className="font-medium">{gejala.nama}</span>
                   <div className="col-span-3 flex justify-between">
                     {Array.from({ length: 10 }).map((_, index) => {
                       const nilai = (index + 1) / 10;
                       return (
-                        <label key={index} className="inline-flex items-center">
-                          <input
-                            type="radio"
-                            name={`nilai_gejala_${gejala.id}`}
-                            value={nilai}
-                            checked={nilaiKeyakinan[gejala.id] === nilai}
-                            onChange={() =>
-                              setNilaiKeyakinan((prev) => ({
-                                ...prev,
-                                [gejala.id]: nilai,
-                              }))
-                            }
-                          />
+                        <label
+                          key={index}
+                          className="inline-flex items-center text-center"
+                        >
+                          <div className="">
+                            <input
+                              type="radio"
+                              name={`nilai_gejala_${gejala.id}`}
+                              value={nilai}
+                              checked={nilaiKeyakinan[gejala.id] === nilai}
+                              onChange={() =>
+                                setNilaiKeyakinan((prev) => ({
+                                  ...prev,
+                                  [gejala.id]: nilai,
+                                }))
+                              }
+                            />
+                          </div>
                         </label>
                       );
                     })}
@@ -145,7 +154,9 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
                 </div>
               ))
             ) : (
-              <p className="text-center text-gray-500">Tidak ada gejala yang dipilih.</p>
+              <p className="text-center text-gray-500">
+                Tidak ada gejala yang dipilih.
+              </p>
             )}
           </div>
         </div>
