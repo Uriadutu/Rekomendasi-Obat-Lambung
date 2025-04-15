@@ -31,7 +31,6 @@ const Home = () => {
 
   // 🔥 Ambil data obat dari Firestore
   useEffect(() => {
-    console.log(obatData);
     
     const fetchObat = async () => {
       try {

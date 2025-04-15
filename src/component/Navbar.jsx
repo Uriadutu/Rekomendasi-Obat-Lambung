@@ -5,12 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../auth/Firebase";
 import { IoIosClose } from "react-icons/io";
-import MenejemenAkunModal from "./modals/MenejemenAkunModal";
-import { AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [openSidebar, setOpenSideBar] = useState(false);
-  const [openAkun, setOpenAkun] = useState(false);
 
   const navigate = useNavigate();
   const logout = async () => {
@@ -22,10 +19,6 @@ const Navbar = () => {
     }
   };
 
-  const handleManajemen = () => {
-    setOpenSideBar(false);
-    setOpenAkun(true);
-  };
 
   return (
     <div>
@@ -95,9 +88,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <AnimatePresence>
-        {openAkun && <MenejemenAkunModal setIsOpenModalAdd={setOpenAkun} />}
-      </AnimatePresence>
+     
       <div className="sm:hidden bg-[#0c8e20] w-full flex m-0 py-4 z-10 justify-between items-center fixed">
         <div className="flex pl-5 justify-between w-full items-center">
           <div className="flex items-center gap-2">
