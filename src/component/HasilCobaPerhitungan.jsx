@@ -56,15 +56,6 @@ const HasilCobaPerhitungan = () => {
         </header>
 
         <div className="bg-white rounded-b px-3 py-4">
-          <div className="flex gap-3 items-center mb-4">
-            <button
-              className="px-4 py-2 bg-gray-200 border border-gray-400 text-gray-700 text-sm rounded hover:bg-gray-100 transition duration-300"
-              onClick={() => navigate("/coba-perhitungan")}
-            >
-              Kembali
-            </button>
-          </div>
-
           {Object.keys(groupedHasil).length > 0 ? (
             <ul className="space-y-4">
               {Object.entries(groupedHasil).map(([nilai, namaObat], index) => (
@@ -93,8 +84,15 @@ const HasilCobaPerhitungan = () => {
             </p>
           )}
         </div>
-
         <div className="flex w-full justify-end gap-2 py-4 px-3">
+          <div className="flex gap-3 items-center ">
+            <button
+              className="px-4 py-2 bg-gray-200 border border-gray-400 text-gray-700 text-sm rounded hover:bg-gray-100 transition duration-300"
+              onClick={() => navigate("/coba-perhitungan")}
+            >
+              Kembali
+            </button>
+          </div>
           <button className="btn-add" onClick={() => setOpenModalInfo(true)}>
             Lihat Gejala
           </button>

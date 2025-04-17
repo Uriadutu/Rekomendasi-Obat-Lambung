@@ -38,7 +38,7 @@ const InfoGejalaModal = ({ setIsOpenModalAdd, gejalaUser }) => {
                 >
                   <span className="font-medium col-span-5 text-gray-800">{gejala.nama}</span>
                   <span className="text-sm text-center text-gray-600">
-                     <span className="font-semibold text-green-600">{(gejala.keyakinan * 100).toFixed()}%</span>
+                     <span className="font-semibold text-green-600">{(gejala.keyakinan * 10).toFixed()}</span>
                   </span>
                 </div>
               ))}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../auth/Firebase";
 import Logo from "../img/sp.png";
 
@@ -9,9 +9,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+    setResetMessage("");
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/data-obat");
@@ -25,6 +29,23 @@ const Login = () => {
       } else {
         setError("Gagal Masuk! Periksa nama pengguna dan kata sandi Anda.");
       }
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    setError("");
+    setResetMessage("");
+
+    if (!email) {
+      setError("Masukkan email terlebih dahulu untuk mengatur ulang kata sandi.");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setResetMessage("Email pengaturan ulang kata sandi telah dikirim.");
+    } catch (err) {
+      setError("Gagal mengirim email pengaturan ulang kata sandi.");
     }
   };
 
@@ -46,18 +67,26 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Pesan Error */}
+            {/* Pesan Error & Reset */}
+            <div className="mt-10"> 
 
-            {/* Input Email */}
-            <div className="mt-10">
             {error && (
-              <p className="text-red-600 font-medium border border-red-400 bg-red-100 rounded-[2px] text-sm p-2 my-2  text-center">
+              <p className="text-red-600 z-1 font-medium border border-red-400 bg-red-100 rounded-[2px] text-sm p-2 my-2 text-center">
                 {error}
               </p>
             )}
+            {resetMessage && (
+              <p className="text-green-600 font-medium border border-green-400 bg-green-100 rounded-[2px] text-sm p-2 my-2 text-center">
+                {resetMessage}
+              </p>
+            )}
+            </div>
+
+            {/* Input Email */}
+            <div className="mt-10">
               <input
                 type="email"
-                className="w-full p-3 rounded-[2px]  border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700 mt-1"
+                className="w-full p-3 rounded-[2px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700 mt-1"
                 placeholder="Nama Pengguna"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -68,7 +97,7 @@ const Login = () => {
             <div className="mt-3">
               <input
                 type="password"
-                className="w-full p-3 rounded-[2px]  border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700 mt-1"
+                className="w-full p-3 rounded-[2px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700 mt-1"
                 placeholder="Kata Sandi"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -79,15 +108,26 @@ const Login = () => {
             <div className="mt-6 flex flex-col space-y-3">
               <button
                 type="submit"
-                className="w-full p-3 bg-green-500 text-white rounded-[2px]  hover:bg-green-600 transition"
+                className="w-full p-3 bg-green-500 text-white rounded-[2px] hover:bg-green-600 transition"
               >
                 Masuk
+              </button>
+            </div>
+
+            {/* Lupa kata sandi */}
+            <div className="text-left mt-3">
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className="text-sm text-green-500 hover:underline"
+              >
+                Lupa kata sandi?
               </button>
             </div>
           </form>
         </div>
 
-        <div className="bg-white p-4 mt-3 shadow-md w-full max-w-2xl rounded-[2px]  text-center">
+        <div className="bg-white p-4 mt-3 shadow-md w-full max-w-2xl rounded-[2px] text-center">
           <p className="text-gray-700 text-sm">
             Belum Mempunyai Akun?{" "}
             <Link to={"/"} className="text-green-500 font-medium hover:underline">
