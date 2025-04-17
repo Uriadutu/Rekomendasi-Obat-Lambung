@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { signOut } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../img/sp.png";
