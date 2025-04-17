@@ -37,7 +37,7 @@ const Login = () => {
     setResetMessage("");
 
     if (!email) {
-      setError("Masukkan email terlebih dahulu untuk mengatur ulang kata sandi.");
+      setError("Masukkan Nama Pengguna Untuk Mengatur Ulang Kata Sandi.");
       return;
     }
 
@@ -71,12 +71,12 @@ const Login = () => {
             <div className="mt-10"> 
 
             {error && (
-              <p className="text-red-600 z-1 font-medium border border-red-400 bg-red-100 rounded-[2px] text-sm p-2 my-2 text-center">
+              <p className="text-red-600 z-1 border border-red-400 bg-red-100 rounded-[2px] text-sm p-2 my-2 text-center">
                 {error}
               </p>
             )}
             {resetMessage && (
-              <p className="text-green-600 font-medium border border-green-400 bg-green-100 rounded-[2px] text-sm p-2 my-2 text-center">
+              <p className="text-green-600 border border-green-400 bg-green-100 rounded-[2px] text-sm p-2 my-2 text-center">
                 {resetMessage}
               </p>
             )}

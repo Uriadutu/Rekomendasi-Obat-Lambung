@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { signOut } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../img/sp.png";
 import { auth } from "../auth/Firebase"; 
-const Sidebar = () => {
+import { AnimatePresence } from "framer-motion";
+import UbahSandiModal from "./modals/UbahSandiModal";
+const Sidebar = ({ onUbahSandi })  => {
+  const [ubahSandiModal, setUbahSandiModal] = useState(false);
   const navigate = useNavigate();
   const logout = async () => {
     try {
@@ -16,7 +19,9 @@ const Sidebar = () => {
 
   return (
     <div className="hidden sm:block z-40 bg-[#0c8e20] w-64 px-6 h-[100vh] drop-shadow-lg relative">
-     
+      <AnimatePresence>
+        {ubahSandiModal && <UbahSandiModal onClose={setUbahSandiModal} />}
+      </AnimatePresence>
       <div className="w-full">
         <div className="w-full">
           <Link
@@ -47,6 +52,7 @@ const Sidebar = () => {
             Kelola Aturan
           </Link>
           <button
+          onClick={onUbahSandi}
             className="rounded-md text-white flex items-center text-sm w-full text-left"
           >
             Ubah Kata Sandi
