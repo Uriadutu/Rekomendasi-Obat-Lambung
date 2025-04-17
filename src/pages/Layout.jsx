@@ -10,6 +10,11 @@ const Layout = ({ children }) => {
   return (
     <React.Fragment>
       <div className="p-0 flex bg-[#F1F1F1]" style={{ minHeight: "100vh" }}>
+      <AnimatePresence>
+        {ubahSandiModal && (
+          <UbahSandiModal onClose={() => setUbahSandiModal(false)} />
+        )}
+      </AnimatePresence>
         <div className="">
           <div className="flex fixed z-10">
             {/* Kirim fungsi pemicu modal ke Sidebar */}
@@ -26,11 +31,7 @@ const Layout = ({ children }) => {
       </div>
 
       {/* Modal ditampilkan DI SINI */}
-      <AnimatePresence>
-        {ubahSandiModal && (
-          <UbahSandiModal onClose={() => setUbahSandiModal(false)} />
-        )}
-      </AnimatePresence>
+    
     </React.Fragment>
   );
 };

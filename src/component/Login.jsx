@@ -43,9 +43,9 @@ const Login = () => {
 
     try {
       await sendPasswordResetEmail(auth, email);
-      setResetMessage("Email pengaturan ulang kata sandi telah dikirim.");
+      setResetMessage("Pesan Pengaturan Ulang Kata Sandi Telah Dikirim.");
     } catch (err) {
-      setError("Gagal mengirim email pengaturan ulang kata sandi.");
+      setError("Gagal mengirim Pesan pengaturan ulang kata sandi.");
     }
   };
 
