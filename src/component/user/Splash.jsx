@@ -25,12 +25,18 @@ const Splash = () => {
         </div>
 
         {/* Bagian Tombol */}
-        <div className="order-3 md:col-span-3 flex justify-start">
+        <div className="order-3 md:col-span-3 flex gap-2 justify-start">
           <Link
             to="/beranda"
-            className="bg-white text-green-700 py-2 px-6 md:px-10 rounded-lg shadow-md hover:bg-gray-100 transition"
+            className="bg-white text-green-700 py-2 px-6 md:px-10 shadow-md hover:bg-gray-100 transition"
           >
-            Mulai
+            Mulai Sekarang
+          </Link>
+          <Link
+            to="/masuk"
+            className=" text-white py-2 px-6 md:px-10 border border-white hover:bg-gray-100 hover:text-green-700 transition duration-300"
+          >
+            Masuk
           </Link>
         </div>
       </div>

@@ -46,9 +46,6 @@ const HasilPerhitungan = () => {
             >
               Kembali
             </button>
-            <button className="btn-add" onClick={() => setOpenModalInfo(true)}>
-              Lihat Gejala
-            </button>
           </div>
           {Object.keys(groupedHasil).length > 0 ? (
             <ul className="space-y-4">
@@ -58,7 +55,7 @@ const HasilPerhitungan = () => {
                   className="p-4 border rounded-lg shadow-sm bg-gray-50"
                 >
                   <div className="font-semibold mb-1">
-                    {index + 1}. {namaObat.join(" & ")}
+                    {index + 1}. {namaObat.join(" / ")}
                   </div>
                   <div className="relative w-full h-4 bg-gray-200 rounded-lg overflow-hidden">
                     <div
@@ -77,6 +74,11 @@ const HasilPerhitungan = () => {
               Tidak ada hasil rekomendasi.
             </p>
           )}
+        </div>
+        <div className="flex w-full justify-end py-4">
+          <button className="btn-add" onClick={() => setOpenModalInfo(true)}>
+            Lihat Gejala
+          </button>
         </div>
       </div>
     </div>

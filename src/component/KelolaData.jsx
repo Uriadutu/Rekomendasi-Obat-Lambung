@@ -49,12 +49,12 @@ const KelolaData = () => {
 
       <div className="bg-white rounded shadow-lg">
         <header className="border-b border-gray-200 px-3 py-4 font-bold text-xl">
-          <h1>Kelola Data</h1>
+          <h1>Kelola Aturan</h1>
         </header>
         <div className="px-3 py-4">
           <div className="flex justify-between items-center mb-4">
             <button onClick={() => setOpenModal(true)} className="btn-add">
-              Kelola Data
+              Kelola Aturan
             </button>
             <div className="flex p-2 border rounded border-gray-200 items-center">
               <input

@@ -7,6 +7,8 @@ import DataGejalaPage from "./pages/DataGejalaPage";
 import KelolaDataPage from "./pages/KelolaDataPage";
 import HasilPerhitunganPage from "./pages/userPage/HasilPerhitunganPage";
 import ProtectedRoute from "./ProtectedRoute";
+import CobaPerhitunganPage from "./pages/CobaPerhitunganPage";
+import HasilCobaPerhitunganPage from "./pages/HasilCobaPerhitunganPage";
 function App() {
   return (
     <BrowserRouter>
@@ -34,10 +36,26 @@ function App() {
           }
         />
         <Route
-          path="/kelola-data"
+          path="/kelola-aturan"
           element={
             <ProtectedRoute>
               <KelolaDataPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/coba-perhitungan"
+          element={
+            <ProtectedRoute>
+              <CobaPerhitunganPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/coba-perhitungan/hasil-rekomendasi"
+          element={
+            <ProtectedRoute>
+              <HasilCobaPerhitunganPage />
             </ProtectedRoute>
           }
         />

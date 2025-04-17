@@ -41,17 +41,22 @@ const Sidebar = () => {
             Data Gejala
           </Link>
           <Link
-            to="/kelola-data"
+            to="/kelola-aturan"
             className="rounded-md text-white flex items-center text-sm w-full text-left"
           >
-            Kelola Data
+            Kelola Aturan
           </Link>
-          {/* <button
-            onClick={handleManajemen}
+          <button
             className="rounded-md text-white flex items-center text-sm w-full text-left"
           >
             Ubah Kata Sandi
-          </button> */}
+          </button>
+          <Link
+            to="/coba-perhitungan"
+            className="rounded-md text-white flex items-center text-sm w-full text-left"
+          >
+            Coba Perhitungan
+          </Link>
           <button
             onClick={logout}
             className="rounded-md text-white flex items-center text-sm w-full text-left"

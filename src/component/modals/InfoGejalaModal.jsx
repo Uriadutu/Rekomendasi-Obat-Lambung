@@ -52,9 +52,9 @@ const InfoGejalaModal = ({ setIsOpenModalAdd, gejalaUser }) => {
         <div className="px-6 py-4 bg-gray-100 border-t border-gray-200 flex justify-end">
           <button
             onClick={() => setIsOpenModalAdd(false)}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            className="bg-gray-100 border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-200"
             >
-            Baik
+            Tutup
           </button>
         </div>
       </motion.div>

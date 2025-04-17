@@ -90,7 +90,7 @@ const Login = () => {
         <div className="bg-white p-4 mt-3 shadow-md w-full max-w-2xl rounded-[2px]  text-center">
           <p className="text-gray-700 text-sm">
             Belum Mempunyai Akun?{" "}
-            <Link to={"/beranda"} className="text-green-500 font-medium hover:underline">
+            <Link to={"/"} className="text-green-500 font-medium hover:underline">
               Kembali
             </Link>
           </p>
