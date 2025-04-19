@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-const CobaPerhitunganModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
+const CobaPerhitunganModal = ({
+  setIsOpenModalAdd,
+  selectedGejala,
+  obatData,
+}) => {
   const [nilaiKeyakinan, setNilaiKeyakinan] = useState({});
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
@@ -55,7 +59,7 @@ const CobaPerhitunganModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) =
         riwayatLangkah.push({
           namaObat: obat.nama,
           gejala: gejala.nama,
-          cfPakar : cfPakar,
+          cfPakar: cfPakar,
           cfUser,
           cfKombinasi,
           rumus: `CF = ${cfPakar} x ${cfUser} = ${cfKombinasi}`,
@@ -80,7 +84,9 @@ const CobaPerhitunganModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) =
           namaObat,
           kombinasiSebelumnya: prev.toFixed(2),
           cfBaru: cf.toFixed(2),
-          rumus: `CF combine = ${prev.toFixed(4)} + ${cf.toFixed(4)} x (1 - ${prev.toFixed(4)}) = ${combined.toFixed(4)}`
+          rumus: `CF combine = ${prev.toFixed(4)} + ${cf.toFixed(
+            4
+          )} x (1 - ${prev.toFixed(4)}) = ${combined.toFixed(4)}`,
         });
       }
     });
@@ -118,7 +124,18 @@ const CobaPerhitunganModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) =
       >
         {/* Header */}
         <div className="flex items-start justify-between p-6 border-b border-gray-200">
-          <h3 className="text-xl font-semibold">Tentukan Nilai Keyakinan</h3>
+          <div className="">
+            <h3 className="text-xl font-semibold">Tentukan Nilai Keyakinan</h3>
+            <div className="flex gap-3 mt-5">
+              <div className="col-span-1 text-[12px] font-bold">
+                <p>Pilih nilai tingkat keyakinan Anda:</p>
+              </div>
+              <div className="col-span-3 text-[12px] font-bold  ">
+                {" "}
+                1 (Kurang Yakin) - 10 (Sangat Yakin)
+              </div>
+            </div>
+          </div>{" "}
           <button
             onClick={() => setIsOpenModalAdd(false)}
             className="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-700 bg-transparent rounded-lg hover:bg-red-500 hover:text-white ms-auto transition duration-300"
@@ -131,27 +148,25 @@ const CobaPerhitunganModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) =
         <div className="py-2 px-6 max-h-[60vh] overflow-y-auto">
           <div className="w-full grid grid-cols-4">
             <div className=""></div>
-            
           </div>
           <div className="w-full grid grid-cols-4">
             <div className=""></div>
             <div className="grid grid-cols-10 w-full justify-center col-span-3">
-             <div className="flex justify-center text-[12px]">1</div>
-             <div className="flex justify-center text-[12px]">2</div>
-             <div className="flex justify-center text-[12px]">3</div>
-             <div className="flex justify-center text-[12px]">4</div>
-             <div className="flex justify-center text-[12px]">5</div>
-             <div className="flex justify-center text-[12px]">6</div>
-             <div className="flex justify-center text-[12px]">7</div>
-             <div className="flex justify-center text-[12px]">8</div>
-             <div className="flex justify-center text-[12px]">9</div>
-             <div className="flex justify-center text-[12px]">10</div>
+              <div className="flex justify-center text-[12px]">1</div>
+              <div className="flex justify-center text-[12px]">2</div>
+              <div className="flex justify-center text-[12px]">3</div>
+              <div className="flex justify-center text-[12px]">4</div>
+              <div className="flex justify-center text-[12px]">5</div>
+              <div className="flex justify-center text-[12px]">6</div>
+              <div className="flex justify-center text-[12px]">7</div>
+              <div className="flex justify-center text-[12px]">8</div>
+              <div className="flex justify-center text-[12px]">9</div>
+              <div className="flex justify-center text-[12px]">10</div>
             </div>
           </div>
 
           {/* List Gejala */}
           <div className="space-y-2 mt-2">
-        
             {selectedGejala.length > 0 ? (
               selectedGejala.map((gejala) => (
                 <div
@@ -192,10 +207,6 @@ const CobaPerhitunganModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) =
                 Tidak ada gejala yang dipilih.
               </p>
             )}
-          </div>
-          <div className="flex gap-3 mt-5">
-            <div className="col-span-1 text-[12px]"><p>Pilih nilai tingkat keyakinan Anda:</p></div>
-            <div className="col-span-3 text-[12px]"> 1 (Kurang Yakin) - 10 (Sangat Yakin)</div>
           </div>
         </div>
 
