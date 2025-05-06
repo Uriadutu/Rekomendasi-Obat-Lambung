@@ -31,7 +31,6 @@ const CobaPerhitungan = () => {
 
   // 🔥 Ambil data obat dari Firestore
   useEffect(() => {
-    
     const fetchObat = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "obat"));
@@ -59,10 +58,11 @@ const CobaPerhitungan = () => {
     });
   };
 
-
   const handleClickLanjut = () => {
     if (selectedGejala.length === 0) {
       setMsg("Silahkan pilih gejala terlebih dahulu");
+    } else if (selectedGejala.length < 2) {
+      setMsg("Minimal pilih 2 gejala");
     } else {
       setLanjut(true);
       setMsg("");
@@ -72,21 +72,18 @@ const CobaPerhitungan = () => {
   return (
     <div className="p-4">
       <AnimatePresence>
-
-      {lanjut && (
-        <CobaPerhitunganModal
-        setIsOpenModalAdd={setLanjut}
-        selectedGejala={selectedGejala}
-        obatData={obatData} // 🔥 Kirim data obat ke modal
-        />
-      )}
+        {lanjut && (
+          <CobaPerhitunganModal
+            setIsOpenModalAdd={setLanjut}
+            selectedGejala={selectedGejala}
+            obatData={obatData} // 🔥 Kirim data obat ke modal
+          />
+        )}
       </AnimatePresence>
       <div className="bg-white rounded shadow-lg">
         <header className="border-b border-gray-200">
           <div className="bg-white rounded-t px-3 py-4 font-bold text-lg md:text-xl">
-            <h1 className="text-center md:text-left">
-              Coba Perhitungan
-            </h1>
+            <h1 className="text-center md:text-left">Coba Perhitungan</h1>
           </div>
         </header>
         <div className="bg-white rounded-b px-3 py-4">
@@ -102,7 +99,9 @@ const CobaPerhitungan = () => {
                   <input
                     type="checkbox"
                     className="w-4 h-4 md:w-5 md:h-5"
-                    checked={selectedGejala.some((gejala) => gejala.id === item.id)}
+                    checked={selectedGejala.some(
+                      (gejala) => gejala.id === item.id
+                    )}
                     onChange={() => handleCheckboxChange(item.id, item.nama)}
                   />
                   <span>{item.nama}</span>
