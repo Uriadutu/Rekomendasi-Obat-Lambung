@@ -31,7 +31,6 @@ const Home = () => {
 
   // 🔥 Ambil data obat dari Firestore
   useEffect(() => {
-    
     const fetchObat = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "obat"));
@@ -59,10 +58,11 @@ const Home = () => {
     });
   };
 
-
   const handleClickLanjut = () => {
     if (selectedGejala.length === 0) {
       setMsg("Silahkan pilih gejala terlebih dahulu");
+    } else if (selectedGejala.length < 2) {
+      setMsg("Minimal pilih 2 gejala");
     } else {
       setLanjut(true);
       setMsg("");
@@ -72,14 +72,13 @@ const Home = () => {
   return (
     <div className="px-1 md:px-10 w-full">
       <AnimatePresence>
-
-      {lanjut && (
-        <UserCFModal
-        setIsOpenModalAdd={setLanjut}
-        selectedGejala={selectedGejala}
-        obatData={obatData} // 🔥 Kirim data obat ke modal
-        />
-      )}
+        {lanjut && (
+          <UserCFModal
+            setIsOpenModalAdd={setLanjut}
+            selectedGejala={selectedGejala}
+            obatData={obatData} // 🔥 Kirim data obat ke modal
+          />
+        )}
       </AnimatePresence>
       <div className="px-4 md:px-10 py-2 md:py-10">
         <header className="border-b border-gray-200">
@@ -102,7 +101,9 @@ const Home = () => {
                   <input
                     type="checkbox"
                     className="w-4 h-4 md:w-5 md:h-5"
-                    checked={selectedGejala.some((gejala) => gejala.id === item.id)}
+                    checked={selectedGejala.some(
+                      (gejala) => gejala.id === item.id
+                    )}
                     onChange={() => handleCheckboxChange(item.id, item.nama)}
                   />
                   <span>{item.nama}</span>
