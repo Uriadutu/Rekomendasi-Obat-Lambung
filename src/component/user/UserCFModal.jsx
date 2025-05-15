@@ -34,23 +34,35 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
       return;
     }
 
-    selectedGejala.forEach((gejala) => {
-      obatValid.forEach((obat) => {
-        const gejalaDitemukan = obat.gejalaList.find(
+    obatValid.forEach((obat) => {
+      const gejalaObat = obat.gejalaList.map((g) => g.gejala);
+      const semuaGejalaCocok = selectedGejala.every((gejala) =>
+        gejalaObat.includes(gejala.nama)
+      );
+
+      if (!semuaGejalaCocok) return;
+
+      let cfGabungan = 0;
+
+      selectedGejala.forEach((gejala, index) => {
+        const gejalaData = obat.gejalaList.find(
           (g) => g.gejala === gejala.nama
         );
-
-        if (!gejalaDitemukan) return;
-
-        const cfPakar = parseFloat(gejalaDitemukan.keyakinan) || 0;
+        const cfPakar = parseFloat(gejalaData?.keyakinan) || 0;
         const cfUser = nilaiKeyakinan[gejala.id] || 0;
-        const cfKombinasi = cfPakar * cfUser;
+        const cf = cfPakar * cfUser;
 
-        hasilPerhitungan.push({
-          namaObat: obat.nama,
-          gejala: gejala.nama,
-          cf: cfKombinasi,
-        });
+        // CF Combine: iteratif
+        if (index === 0) {
+          cfGabungan = cf;
+        } else {
+          cfGabungan = cfGabungan + cf * (1 - cfGabungan);
+        }
+      });
+
+      hasilPerhitungan.push({
+        namaObat: obat.nama,
+        cf: cfGabungan,
       });
     });
 
