@@ -24,7 +24,6 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
 
     let hasilPerhitungan = [];
 
-    // Filter hanya obat yang memiliki gejalaList yang valid
     const obatValid = obatData.filter(
       (obat) => Array.isArray(obat.gejalaList) && obat.gejalaList.length > 0
     );
@@ -52,7 +51,6 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
         const cfUser = nilaiKeyakinan[gejala.id] || 0;
         const cf = cfPakar * cfUser;
 
-        // CF Combine: iteratif
         if (index === 0) {
           cfGabungan = cf;
         } else {
@@ -102,7 +100,6 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
         transition={{ duration: 0.3 }}
         className="w-full max-w-3xl bg-white text-gray-700 rounded-lg shadow-lg"
       >
-        {/* Header */}
         <div className="flex items-start justify-between p-6 border-b border-gray-200">
           <div className="">
             <h3 className="text-xl font-semibold">Tentukan Nilai Keyakinan</h3>
@@ -123,8 +120,6 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
             ✕
           </button>
         </div>
-
-        {/* Konten dengan Scroll */}
         <div className="py-2 px-6 max-h-[60vh] overflow-y-auto">
           <div className="w-full grid grid-cols-4">
             <div className=""></div>
@@ -144,8 +139,6 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
               <div className="flex justify-center text-[12px]">10</div>
             </div>
           </div>
-
-          {/* List Gejala */}
           <div className="space-y-2 mt-2">
             {selectedGejala.length > 0 ? (
               selectedGejala.map((gejala) => (
@@ -189,8 +182,6 @@ const UserCFModal = ({ setIsOpenModalAdd, selectedGejala, obatData }) => {
             )}
           </div>
         </div>
-
-        {/* Footer */}
         <div className="flex items-center w-full justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
           <p className="text-red-500">{msg}</p>
           <button
